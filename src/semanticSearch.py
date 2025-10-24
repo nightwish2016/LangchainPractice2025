@@ -56,7 +56,15 @@ print(vector_1[:10])
 
 from langchain_core.vectorstores import InMemoryVectorStore
 
-vector_store = InMemoryVectorStore(embeddings)
+# vector_store = InMemoryVectorStore(embeddings) #saave in memory
+
+from langchain_chroma import Chroma
+
+vector_store = Chroma(
+    collection_name="example_collection",
+    embedding_function=embeddings,
+    persist_directory="./chroma_langchain_db",  # Where to save data locally, remove if not necessary
+) #save vector in Choma database
 
 ids = vector_store.add_documents(documents=all_splits)
 
